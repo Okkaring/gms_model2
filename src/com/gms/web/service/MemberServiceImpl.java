@@ -43,4 +43,9 @@ public class MemberServiceImpl implements MemberService{
 	public String remove(String id) {
 		return	(MemberDAOImpl.getInstance().delete(id).equals("1"))? "등록 성공!!": "등록 실패!!";
 	}
+	@Override
+	public String login(MemberBean bean) {
+		MemberBean temp = findById(bean.getId());
+		return (temp != null)?(bean.getPw().equals(temp.getPw()))?"main":"login_fail":"member_join";
+	}
 }

@@ -1,3 +1,4 @@
+<!-- MEMBER C -->
 -- id, pw, ssn, name, regdate;
 INSERT INTO Member(id, pw, ssn, name, regdate)
 VALUES('hon', '1', '800101-123456', '홍길똥', SYSDATE);
@@ -32,18 +33,25 @@ VALUES('cream','1','170513-223456','구크림',SYSDATE);
 INSERT INTO Member(phone)
 VALUES('010-1234-4567');
 
-
+<!-- MEMBER R,U,D -->
 SELECT * FROM Member;
 SELECT * FROM Member WHERE name = '';
 SELECT COUNT(*) AS count FROM Member;
 SELECT * FROM Member WHERE id = '';
+SELECT * FROM Member ORDER BY ssn, name;
+SELECT * FROM Member m, Board b WHERE m.id = b.id;
+SELECT * FROM Member m, Board b WHERE m.id = b.id ORDER BY b.article_seq;
+
+SELECT * FROM Member m, Board b, Grade g WHERE m.id = b.id AND m.id = g.id;
+
+
 UPDATE Member SET password='' WHERE id='';
 UPDATE Member SET phone = '010-1234-4567' WHERE id='';
 DELETE FROM Member WHERE id='';
 
 
---START BOARD--
--- id, title, content;
+<!-- BOARD C -->
+-- id, title,content;
 -- article_seq, hitcount;
 -- regdate;
 
@@ -78,13 +86,18 @@ INSERT INTO Board(article_seq,id,title,content,hitcount,regdate)
 VALUES(article_seq.nextval,'cream','냐옹','난 아이스크림따위는 먹지않아.',0,SYSDATE);
 
 INSERT INTO Board(article_seq,id,title,content,hitcount,regdate) VALUES(article_seq.nextval,'cream','sisi','sisisi',0,SYSDATE);
+
+<!-- BOARD R,U,D -->
 SELECT * FROM Board;
 SELECT * FROM Board WHERE id='hon';
-SELECT * FROM Board WHERE article_seq=1020;
+SELECT * FROM Board WHERE article_seq;
 SELECT COUNT(*) AS count FROM Board;
+SELECT id FROM Board WHERE title LIKE '%안녕%';
+SELECT DISTINCT id FROM Board WHERE id LIKE '%o%';
+SELECT SUM(article_seq) 총합 FROM Board;
+
 
 UPDATE Board SET title='수정업뎃',content='업뎃내용' WHERE article_seq='1020';
 DELETE FROM Board WHERE article_seq='1020';
-
 
 

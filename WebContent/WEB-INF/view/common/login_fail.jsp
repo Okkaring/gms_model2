@@ -15,7 +15,7 @@
 <div id="wrapper">
 <!-- TITLE -->
 <header>
-<h1 id="title"><a href="<%=request.getContextPath() %>/index.jsp">STUDENT MGMT</a></h1>
+<h1 id="title"><a href="<%=request.getContextPath() %>/index.jsp">WRONG PASSWORD</a></h1>
 <hr id="title_line">
 </header>
 </div>
@@ -25,7 +25,6 @@
 <!-- CONTENT -->
 <div id="container">
 	<a href="<%=request.getContextPath()%>/WEB_INF/common/main.jsp"> 메인 이동 </a>
-	
 	<form id="Login_box" action="<%=request.getContextPath()%>/common.do" method="get">
 		<img src="<%=request.getContextPath()%>/resources/img/mainimg.jpg"/><br /><br />
 		<span id="login_id">ID</span><input type="text" name="id" value="bomb" placeholder="※ID는 숫자 포함 8자 이내"/><br>

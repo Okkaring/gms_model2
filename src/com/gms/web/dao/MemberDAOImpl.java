@@ -12,9 +12,9 @@ import com.gms.web.factory.DatabaseFactory;
 
 public class MemberDAOImpl implements MemberDAO{
 	
-		public static MemberDAOImpl getInstance() {
-			return new MemberDAOImpl();
-		}
+	public static MemberDAOImpl getInstance() {
+		return new MemberDAOImpl();
+	}
 	private MemberDAOImpl(){}
 	
 	@Override
@@ -75,12 +75,13 @@ public class MemberDAOImpl implements MemberDAO{
 
 	@Override
 	public MemberBean selectById(String id) {
-		MemberBean member = new MemberBean();
+		MemberBean member = null;
 		try {
 			PreparedStatement pstmt =DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection().prepareStatement(SQL.MEMBER_FINDBYID);
 			pstmt.setString(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()){
+				member = new MemberBean();
 				member.setId(rs.getString(DB.MEMBER_ID));
 				member.setPw(rs.getString(DB.MEMBER_PW));
 				member.setSsn(rs.getString(DB.MEMBER_SSN));

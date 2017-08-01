@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gms.web.domain.MemberBean;
+import com.gms.web.service.MemberService;
+import com.gms.web.service.MemberServiceImpl;
 import com.gms.web.util.DispatcherServlet;
+import com.gms.web.util.Separator;
 
 import sun.rmi.server.Dispatcher;
 
@@ -18,9 +22,17 @@ public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DispatcherServlet.send(request, response);
+		System.out.println("MemberController Do get 진입");
+		Separator.init(request);
+		switch (request.getParameter("action")) {
+		case "move":
+			DispatcherServlet.send(request, response);
+			break;
+		default:
+			break;
+		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Do Post 진입");
+		System.out.println(" MemberController Do Post 진입");
 	}
 }
