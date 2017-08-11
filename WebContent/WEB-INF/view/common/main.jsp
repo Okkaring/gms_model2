@@ -1,49 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file = "../member/member_head.jsp" %>
-<div id="container">
-<!-- MAIN MENU -->
-<table id="index-tab">
-	<tr id="index-tab-tr">
-		<th><i class="fa fa-heart"></i> STUDENT MGMT</th>
-		<th><i class="fa fa-file"></i> GRADE MGMT</th>
-		<th><i class="fa fa-bars"></i> LIST</th>
-	</tr>
-<!-- SUB MENU -->
-	<tr>
-	<!-- STUDENT MGMT -->
-		<td>
-			<ul class="index-ul">
-				<li><a href="<%=request.getContextPath()%>/member.do?action=move&page=member_add">STUDENT ADD</a></li>
-				<li><a href="<%=request.getContextPath()%>/member.do?action=move&page=member_list">STUDENT LIST</a></li>
-				<li><a href="<%=request.getContextPath()%>/member.do?action=move&page=member_search">STUDENT SEARCH</a></li>
-				<li><a href="<%=request.getContextPath()%>/member.do?action=move&page=member_update">STUDENT UPDATE</a></li>
-				<li><a href="<%=request.getContextPath()%>/member.do?action=move&page=member_delete">STUDENT DELETE</a></li>
-			</ul>
-		</td>
-		
-	<!-- GRADE MGMT -->
-		<td>
-			<ul class="index-ul">
-				<li><a href="<%=request.getContextPath()%>/grade/grade_add.jsp">GRADE ADD</a></li>
-				<li><a href="<%=request.getContextPath()%>/grade/grade_list.jsp">GRADE LIST</a></li>
-				<li><a href="<%=request.getContextPath()%>/grade/grade_detail.jsp">GRADE DETAIL</a></li>
-				<li><a href="<%=request.getContextPath()%>/grade/grade_update.jsp">GRADE UPDATE</a></li>
-				<li><a href="<%=request.getContextPath()%>/grade/grade_delete.jsp">GRADE DELETE</a></li>
-			</ul>
-		</td>
-		
-	<!-- LIST -->
-		<td>
-			<ul class="index-ul">
-				<li><a href="<%=request.getContextPath()%>/board/board_write.jsp">BOARD WRITE</a></li>
-				<li><a href="<%=request.getContextPath()%>/board/board_list.jsp">BOARD LIST</a></li>
-				<li><a href="<%=request.getContextPath()%>/board/board_detail.jsp">BOARD DETAIL</a></li>
-				<li><a href="<%=request.getContextPath()%>/board/board_update.jsp">BOARD UPDATE</a></li>
-				<li><a href="<%=request.getContextPath()%>/board/board_delete.jsp">BOARD DELETE</a></li>
-			</ul>
-		</td>
-	</tr>
-</table>
+<jsp:include page="common_head.jsp"/>
+
+
+<div id="container" >
+	<div class="row">
+		<div class="col-sm-4">
+			<h3>학생관리</h3>
+				<ul class="list-group">
+					<li class="list-group-item"><a onclick = "moveTo('member','member_add')">STUDENT ADD</a></li>
+					<li class="list-group-item"><a onclick = "moveTo('member','member_list')">STUDENT LIST</a></li>
+					<li class="list-group-item"><a onclick = "moveTo('member','member_search')">STUDENT SEARCH</a></li>
+					<li class="list-group-item"><a onclick = "moveTo('member','member_update')">STUDENT UPDATE</a></li>
+					<li class="list-group-item"><a onclick = "deleteTarget('member_delete')">STUDENT DELETE</a></li>
+				</ul>
+		</div>
+		<div class="col-sm-4">
+			<h3>성적관리</h3>
+				<ul class="list-group">
+					<li class="list-group-item"><a onclick = "moveTo('grade','grade_add')">GRADE ADD</a></li>
+					<li class="list-group-item"><a onclick = "moveTo('grade','grade_list')">GRADE LIST</a></li>
+					<li class="list-group-item"><a onclick = "moveTo('grade','grade_detail')">GRADE DETAIL</a></li>
+					<li class="list-group-item"><a onclick = "moveTo('grade','grade_update')">GRADE UPDATE</a></li>
+					<li class="list-group-item"><a onclick = "deleteTarget('grade_delete')">GRADE DELETE</a></li>
+				</ul>
+		</div>
+		<div class="col-sm-4">
+			<h3>게시판관리</h3>
+				<ul class="list-group">
+					<li class="list-group-item"><a onclick = "moveTo('board','board_write')">BOARD WRITE</a></li>
+					<li class="list-group-item"><a onclick = "moveTo('board','board_list')">BOARD LIST</a></li>
+					<li class="list-group-item"><a onclick = "moveTo('board','board_detail')">BOARD DETAIL</a></li>
+					<li class="list-group-item"><a onclick = "moveTo('board','board_update')">BOARD UPDATE</a></li>
+					<li class="list-group-item"><a onclick = "deleteTarget('board_delete')">BOARD DELETE</a></li>
+				</ul>
+		</div>
+	</div>
 </div>
-<%@ include file = "../common/footer.jsp" %>
+<jsp:include page="../common/footer.jsp"/>
 </html>
+
+<script>
+	function moveTo(ctx,page){
+		location.href="${ctx}/"+ctx+".do?action=move&page="+page;
+	}
+	function deleteTarget(ctx){
+		window.prompt(ctx+"의 id");
+	}
+</script>

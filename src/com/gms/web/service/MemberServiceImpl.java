@@ -1,6 +1,6 @@
 package com.gms.web.service;
 
-import java.util.List;
+import java.util.*;
 
 import com.gms.web.dao.MemberDAOImpl;
 import com.gms.web.domain.MemberBean;
@@ -41,11 +41,15 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public String remove(String id) {
-		return	(MemberDAOImpl.getInstance().delete(id).equals("1"))? "등록 성공!!": "등록 실패!!";
+		return	(MemberDAOImpl.getInstance().delete(id).equals("1"))? "삭제 성공!!": "삭제 실패!!";
 	}
 	@Override
-	public String login(MemberBean bean) {
-		MemberBean temp = findById(bean.getId());
-		return (temp != null)?(bean.getPw().equals(temp.getPw()))?"main":"login_fail":"member_join";
+	public Map<String, Object> login(MemberBean bean) {
+		Map<String, Object> map = new HashMap<>();
+		MemberBean m = findById(bean.getId());
+		String page = (m != null)?(bean.getPw().equals(m.getPw()))?"main":"login_fail":"member_join";
+		map.put("page",page);
+		map.put("user",m);
+		return map;
 	}
 }

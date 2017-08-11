@@ -1,6 +1,6 @@
 package com.gms.web.service;
 
-import java.util.List;
+import java.util.*;
 
 import com.gms.web.domain.MemberBean;
 
@@ -15,6 +15,6 @@ public interface MemberService {
 	public List<MemberBean> findByName(String name); 
 	public String modify(MemberBean bean);
 	public String remove(String id);		
-	public String login(MemberBean bean);
+	public Map<String, Object> login(MemberBean bean);
 	
 }

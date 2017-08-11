@@ -7,6 +7,8 @@
 table{width: 1200px;}
 /* FOOTER */
 footer{width: 100%;font-size: 5px;text-align: center;}
+.container-fluid{position: relative;}
+.navbar_st{position: absolute; right:20px; top:15px; color: white;}
 
 /* TITLE */
 #title{
@@ -45,7 +47,7 @@ footer{width: 100%;font-size: 5px;text-align: center;}
 /* unvisited link */
 a:link {color: black;}
 /* visited link */
-a:visited {color: black;}
+
 /* mouse over link */
 a:hover {color: red;}
 /* selected link */

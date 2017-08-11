@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file = "member_head.jsp" %>
+<jsp:include page="../common/common_head.jsp"/>>
 
 <div id="container">
-	<form id="member_search_box" action="<%=request.getContextPath()%>/member.do" method="get">
+	<form id="member_search_box" action="${ctx}/member.do" method="get">
 		검색 조건 : <select name="option">
 		<option value="id" selected> ID </option>
 		<option value="name"> NAME </option>
@@ -13,4 +13,4 @@
 	<input type="submit" />
 	</form>
 </div>
-<%@ include file = "../common/footer.jsp" %>
+<jsp:include page="../common/footer.jsp"/>

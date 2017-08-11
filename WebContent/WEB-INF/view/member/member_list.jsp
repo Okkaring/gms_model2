@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.*"%>
-<%@ page import="java.sql.*"%>
-<%@ include file = "member_head.jsp" %>
-
+<jsp:include page="../common/common_head.jsp"/>
 <div id="container">
 <table id="member_list_tab">
 	<tr>
@@ -21,12 +18,12 @@
 		<td> N° </td>
 		<td> ID </td>
 		<td> SSN </td>
-		<td> <a href="<%= request.getContextPath()%>/member/member_detail.jsp?id=">ㅇㅣ름</a> </td>
+		<td> <a href="${ctx}/member/member_detail.jsp?id=">ㅇㅣ름</a> </td>
 		<td> regdate </td>
 		<td> phone </td>
 		<td> email </td>
 		<td> major </td>
-		<td> <a href="<%= request.getContextPath()%>/member/member_update.jsp?id="> MODIFY </a> <a href="<%= request.getContextPath()%>/member/service_delete.jsp?id="> DELETE </a></td>
+		<td> <a href="${ctx}S/member/member_update.jsp?id="> MODIFY </a> <a href="${ctx}/member/service_delete.jsp?id="> DELETE </a></td>
 	</tr>
 
 </table>

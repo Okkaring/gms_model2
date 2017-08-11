@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file = "member_head.jsp" %>
+<jsp:include page="../common/common_head.jsp"/>
 
 <div id="container">
-<img src="<%=request.getContextPath() %>/img/mainimg.jpg"/><br />
+<img src="${img}/mainimg.jpg"/><br />
 <form id="join_form" action="member_detail.jsp" method="get">
 	
 	<fieldset>
@@ -48,4 +48,3 @@
 </fieldset>
 </form> 
 </div>
-	<%@ include file = "../common/footer.jsp" %>
