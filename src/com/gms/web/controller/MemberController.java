@@ -79,12 +79,11 @@ public class MemberController extends HttpServlet {
 			request.setAttribute("list", memberList);
 			request.setAttribute("prevBlock", "0");
 
-			request.setAttribute("theNumberOfPages", memberList.size()/5);
 			request.setAttribute("startPage", "1");
+			int theNumberOfPages= (memberList.size()%5!=0)?memberList.size()/5+1:memberList.size()/5;
 			System.out.println("페이지수"+memberList.size()/5);
-			int pageCount=memberList.size()/5;
-			int endPage = (pageCount%5!=0)?pageCount+1:pageCount;
-			request.setAttribute("endPage", String.valueOf(endPage));
+			request.setAttribute("theNumberOfPages", theNumberOfPages);
+			request.setAttribute("endPage", String.valueOf(theNumberOfPages));
 			DispatcherServlet.send(request, response);
 			break;
 		default: System.out.println("FAIL....");
