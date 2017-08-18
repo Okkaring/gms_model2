@@ -3,6 +3,7 @@ package com.gms.web.service;
 import java.util.*;
 
 import com.gms.web.dao.MemberDAOImpl;
+import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
 
 
@@ -11,12 +12,18 @@ public class MemberServiceImpl implements MemberService{
 	public static MemberServiceImpl getInstance() {return new MemberServiceImpl();}
 	private MemberServiceImpl(){}
 	//List<MemberBean> list = new ArrayList<>();
+	@SuppressWarnings("unchecked")
 	@Override
-	public String addMember(MemberBean member) {
-		return (MemberDAOImpl.getInstance().insert(member).equals("1"))? "등록 성공!!": "등록 실패!!";
+	public String addMember(Map<?,?> map) {
+		System.out.println("member service 진입");
+		MemberBean m = (MemberBean)map.get("member");
+		System.out.println("넘어온 회원의 이름: "+ m.toString());
+		List<MajorBean> list =(List<MajorBean>)map.get("major");
+		System.out.println("넘어온 수강과목:"+list);
+		return MemberDAOImpl.getInstance().insert(map);
 	}
 	@Override
-	public List<MemberBean> list() {
+	public List<?> list() {
 		return MemberDAOImpl.getInstance().selectAll();
 	}
 	@Override
@@ -30,7 +37,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<MemberBean> findByName(String name) {
+	public List<?> findByName(String name) {
 		return MemberDAOImpl.getInstance().selectByName(name);
 	}
 

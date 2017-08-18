@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!-- HEADER -->
 <!doctype html>
 <html lang="ko">
@@ -13,14 +14,14 @@
 
 <body>	
 <div id="wrapper">
+
 <!-- TITLE -->
 <header>
 <h1 id="title"><a href="<%=request.getContextPath() %>/index.jsp">WRONG PASSWORD</a></h1>
 <hr id="title_line">
 </header>
 </div>
-</body>
-</html>
+
 
 <!-- CONTENT -->
 <div id="container">
@@ -34,6 +35,7 @@
 		<input type="hidden" name="action" value="login" />
 		<input type="hidden" name="page" value="main" />
 	</form>
+	</div>
 
 <!-- FOOTER -->
 <footer>
@@ -45,3 +47,5 @@
 
 	</div>
 </footer>
+</body>
+</html>

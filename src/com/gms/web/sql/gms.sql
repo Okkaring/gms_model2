@@ -28,6 +28,8 @@ DROP SEQUENCE grade_seq;
 -- ************************************************
 -- DDL
 <!-- MAJOR TABLE CREATE -->
+alter table major add subj_id varchar2(10);
+alter table major add member_id varchar2(10);
 CREATE TABLE Major(
 	major_id VARCHAR2(10),
 	title VARCHAR2(10),
@@ -37,7 +39,9 @@ CREATE TABLE Major(
 -- DML
 INSERT INTO Major(major_id, title) VALUES('','');
 SELECT * FROM Major;
- 
+SELECT * FROM MEMBER;
+SELECT * FROM Subject;
+SELECT * FROM Student;
 
 -- ************************************************
 -- [2]SUBJECT_TAB
@@ -115,7 +119,8 @@ SELECT DISTINCT ssn,name FROM Member m, Board b WHERE m.id = b.id AND ROWNUM >= 
 UPDATE Member SET password='' WHERE id='';
 UPDATE Member SET phone = '010-1234-4567' WHERE id='';
 
-DELETE FROM Member WHERE id='';
+
+
 -- ****************************************************************
 -- [4]PROF_TAB
 -- 2017.08.02
@@ -147,7 +152,7 @@ SELECT * FROM prof p, member m WHERE p.member_id = m.member_id;
 -- member_id, stu_no('학번 + 더미값')
 -- ****************************************************************
 --DDL
-CREATE TABLE Student(
+<!-- CREATE TABLE Student(
 	Member_id VARCHAR2(10),
 	stu_no VARCHAR2(8),
 	PRIMARY KEY(member_id),
@@ -158,7 +163,28 @@ CREATE TABLE Student(
 INSERT INTO Student(member_id, stu_no) VALUES('inkang','20137015');
 SELECT * FROM Student;
 SELECT * FROM Student s, Member m WHERE s.member_id = m.MEMBER_ID;
-SELECT COUNT(*) FROM Student s, Member m WHERE s.member_id = m.MEMBER_ID;
+SELECT COUNT(*) FROM Student s, Member m WHERE s.member_id = m.MEMBER_ID; -->
+
+--CREATE VIEW TABLE
+create view student (num,id,ssn,name,phone,email,title,regdate)
+as
+select rownum, t.id, t.ssn, t.name, t.phone, t.email, t.title, t.regdate
+from (
+    select a.member_id id, a.name name, rpad(substr(a.ssn,1,8),14,'*') ssn, a.phone phone, a.email email,
+    	listagg(s.title, ',') within group (order by s.title) title,to_char(a.regdate,'yyyy-MM-dd') regdate 
+    from member a
+        left join major m on a.member_id = m.member_id
+        left join subject s on m.subj_id = s.subj_id
+    group by a.member_id, a.name, a.ssn, a.phone, a.email,a.regdate  
+    order by a.regdate
+) t
+    order by rownum desc;
+
+select * from student;
+--drop view student;
+
+
+
 -- ****************************************************************
 -- [6]GRADE_TABLE
 -- 2017.08.02
@@ -305,7 +331,6 @@ SELECT * FROM Tab;
 SELECT * FROM Member;
 SELECT * FROM Board;
 SELECT * FROM Prof;
-SELECT * FROM Student;
 SELECT * FROM Major;
 SELECT * FROM Subject;
 SELECT * FROM Grade;

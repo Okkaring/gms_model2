@@ -9,13 +9,14 @@
 	<legend id="legend_set">ADD ARTICLE</legend><br />
 	
  	<span id="add_id">ID:</span>
- 	<input name="id" type="text" placeholder="아이디"><br>
+ 	<input id="join_id" name="id" type="text" placeholder="아이디">
+ 	<br>
   	
  	<span id="add_pass">Password:</span>
-	<input name="pw" type="password" placeholder="비밀번호"><br>
+	<input id="join_pw" name="pw" type="password" placeholder="비밀번호"><br>
 	 
  	<span id="add_bday">Birth day:</span>
- 	<input name="birthday" type="text" style="width: 170px;"><br>
+ 	<input id="join_birthday" name="birthday" type="text" style="width: 170px;"><br>
  	 
  	<input type="radio" name="gender" value="male" checked> Male
  	<input type="radio" name="gender" value="female" checked> Female<br />
@@ -43,9 +44,32 @@
  	 <input type="checkbox" name="subject" value="sql"/> sql <br />
  	 <input type="checkbox" name="subject" value="pathon"/> pathon <br /><br />
  	 
- 	<input id="join_yes-btn" type="submit" value="admit">
+ 	<input id="join_yes-btn" type="submit" value="admit" onclick="addAlert()">
  	<input id="join_no-btn" type="reset" value="cancle">
 </fieldset>
 </form> 
 </div>
-<jsp:include page="../common/footer.jsp"/>
+
+<script>
+function addAlert(){
+	var addd_id = document.getElementById("addd_id").value;
+	var addd_pw = document.getElementById("addd_pw").value;
+	var addd_birthday = document.getElementById("addd_birthday").value;
+	if(addd_id===""){
+		alert('ID를 입력해 주세요.');
+		return false;
+	}
+	if(addd_pw===""){
+		alert('pw를 입력해 주세요.');
+		return false;
+	}
+	if(addd_birthday===""){
+		alert('생일을 입력해 주세요.');
+		return false;
+	}
+	var form = document.getElementById('join_form');
+	form.action = "${ctx}/member.do";
+	form.method = "post";
+	return true;
+}
+</script>

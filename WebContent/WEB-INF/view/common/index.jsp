@@ -48,8 +48,8 @@
 </div>
 <script>
 	function loginAlert(){
-		let login_id = document.getElementById("login_id").value;
-		let login_pass = document.getElementById("login_pass").value;
+		var login_id = document.getElementById("login_id").value;
+		var login_pass = document.getElementById("login_pass").value;
 		if(login_id===""){
 			alert('ID를 입력해 주세요.');
 			return false;
@@ -58,7 +58,7 @@
 			alert('pass를 입력해 주세요.');
 			return false;
 		}
-		let form = document.getElementById('login_box');
+		var form = document.getElementById('login_box');
 		form.action = "${ctx}/common.do";
 		form.method = "post";
 		return true;
