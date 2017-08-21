@@ -183,6 +183,11 @@ from (
 select * from student;
 --drop view student;
 
+select t2.*
+from (select rownum seq,t.*
+	from (select * from student order by num desc)t)t2
+where t2.seq between 1 and 5;
+
 
 
 -- ****************************************************************

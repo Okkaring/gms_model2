@@ -11,7 +11,6 @@ import com.gms.web.domain.MemberBean;
 public class MemberServiceImpl implements MemberService{
 	public static MemberServiceImpl getInstance() {return new MemberServiceImpl();}
 	private MemberServiceImpl(){}
-	//List<MemberBean> list = new ArrayList<>();
 	@SuppressWarnings("unchecked")
 	@Override
 	public String addMember(Map<?,?> map) {
@@ -23,8 +22,8 @@ public class MemberServiceImpl implements MemberService{
 		return MemberDAOImpl.getInstance().insert(map);
 	}
 	@Override
-	public List<?> list() {
-		return MemberDAOImpl.getInstance().selectAll();
+	public List<?> list(Object o) {
+		return MemberDAOImpl.getInstance().selectAll(o);
 	}
 	@Override
 	public String countMembers() {

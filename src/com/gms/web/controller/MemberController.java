@@ -15,6 +15,9 @@ import com.gms.web.dao.MemberDAOImpl;
 import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
 import com.gms.web.domain.StudentBean;
+import com.gms.web.proxy.BlockHandler;
+import com.gms.web.proxy.PageHandler;
+import com.gms.web.proxy.PageProxy;
 import com.gms.web.service.MemberService;
 import com.gms.web.service.MemberServiceImpl;
 import com.gms.web.util.DispatcherServlet;
@@ -32,11 +35,11 @@ public class MemberController extends HttpServlet {
 		MemberService service = MemberServiceImpl.getInstance();
 		switch (request.getParameter("action")) {
 		case Action.MOVE:
-			System.out.println("====moveeeeee");
+			System.out.println("MemberCtrller: MEMBER MOVE 진입");
 			DispatcherServlet.send(request, response);
 			break;
 		case Action.JOIN:
-			System.out.println("====join 진입");
+			System.out.println("MemberCtrller: MEMBER JOIN 진입");
 			Map<?,?> map = ParamsIterator.execute(request);
 			member.setId((String)map.get("id"));
 			member.setPw((String)map.get("pw"));
@@ -69,21 +72,30 @@ public class MemberController extends HttpServlet {
 			DispatcherServlet.send(request, response);
 			break;
 		case Action.LIST :
-			System.out.println("여기는 멤버컨트롤러. Member List Enter 데스:");
-			@SuppressWarnings("unchecked")
-			List<StudentBean> memberList = (List<StudentBean>)service.list();
-			System.out.println("DB에서 가져온 MemberList"+memberList);
-/*			Agency a = new PageProxy();
-			Map<?,?> r = a.delegateTo(null);*/
-			request.setAttribute("pageNumber",request.getParameter("pageNumber"));
-			request.setAttribute("list", memberList);
-			request.setAttribute("prevBlock", "0");
-
-			request.setAttribute("startPage", "1");
-			int theNumberOfPages= (memberList.size()%5!=0)?memberList.size()/5+1:memberList.size()/5;
-			System.out.println("페이지수"+memberList.size()/5);
-			request.setAttribute("theNumberOfPages", theNumberOfPages);
-			request.setAttribute("endPage", String.valueOf(theNumberOfPages));
+			System.out.println("MemberCtrller: MEMBER LIST 진입");
+			PageProxy pxy = new PageProxy(request);
+			pxy.setPageSize(5);
+			pxy.setBlockSize(5);
+			pxy.setTheNumberOfRows(Integer.parseInt(service.countMembers()));
+			pxy.setPageNumber(Integer.parseInt(request.getParameter("pageNumber")));
+			int[] arr = PageHandler.attr(pxy);
+			int[] arr2 = BlockHandler.attr(pxy);
+			pxy.execute(arr2, service.list(arr));
+			DispatcherServlet.send(request, response);
+			break;
+		case Action.UPDATE: 
+			System.out.println("MemberCtrller: MEMBER UPDATE 진입");
+			service.modify(service.findById(request.getParameter("id"))); //(bean)
+			DispatcherServlet.send(request, response);
+			break;
+		case Action.DELETE: 
+			System.out.println("MemberCtrller: MEMBER DELETE 진입");
+		/*	service.remove(request.getParameter("id"));*/
+			response.sendRedirect(request.getContextPath()+"/member.do?action=list&page=member_list&pageNumber=1");
+			break;
+		case Action.DETAIL: 
+			System.out.println("MemberCtrller: MEMBER DETAIL 진입");
+			request.setAttribute("student",service.findById(request.getParameter("id")));
 			DispatcherServlet.send(request, response);
 			break;
 		default: System.out.println("FAIL....");

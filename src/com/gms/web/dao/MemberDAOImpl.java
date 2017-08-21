@@ -10,8 +10,11 @@ import com.gms.web.factory.DatabaseFactory;
 
 public class MemberDAOImpl implements MemberDAO{
 	Connection conn;
+	StudentBean stu = null;
+
 	public static MemberDAOImpl getInstance() {return new MemberDAOImpl();}
 	private MemberDAOImpl(){conn =null;}
+	
 	@Override
 	public String insert(Map<?,?> map) {
 		String rs ="";
@@ -64,11 +67,15 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public List<?> selectAll() {
+	public List<?> selectAll(Object o) {
 		List<StudentBean> list = new ArrayList<>();
-		StudentBean stu = null;
+		int[] arr =(int[])o;
 		try {
-			ResultSet rs =DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection().prepareStatement(SQL.STUDENT_LIST).executeQuery();
+			conn = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(SQL.STUDENT_LIST);
+			pstmt.setString(1, String.valueOf(arr[0]));
+			pstmt.setString(2, String.valueOf(arr[1]));
+			ResultSet rs= pstmt.executeQuery();
 			while(rs.next()){
 				stu = new StudentBean();
 				stu.setNum(rs.getString(DB.NUM));
@@ -79,8 +86,6 @@ public class MemberDAOImpl implements MemberDAO{
 				stu.setEmail(rs.getString(DB.MEMBER_EMAIL));
 				stu.setTitle(rs.getString(DB.TITLE));
 				stu.setRegdate(rs.getString(DB.MEMBER_REGDATE));
-				
-				
 				list.add(stu);
 			}
 		} catch (Exception e) {
@@ -93,7 +98,7 @@ public class MemberDAOImpl implements MemberDAO{
 	public String countMembers() {
 		String result="";
 		try {
-			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection().prepareStatement(SQL.COUNT_MEMBERS).executeQuery();
+			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection().prepareStatement(SQL.COUNT_STUDENT).executeQuery();
 			if(rs.next()){
 				result = rs.getString("count");
 			}

@@ -21,7 +21,14 @@ public class SQL {
 	
 	public static final String INSERT_MAJOR = String.format("INSERT INTO %s(%s,%s,%s,%s) VALUES(?,?,?,?)",DB.TABLE_MAJOR,DB.MAJOR_ID,DB.TITLE,DB.SUBJ_ID,DB.MEMBER_ID);
 	
-	public static final String STUDENT_LIST = " select t.* "+ " from(select rownum rnum, s.* "+ " from student s)t ";
-	}
-
-//" where t.rnum between 1 and 21 "
+	/*public static final String STUDENT_LIST =
+			"select t2.*"+
+				"from (select rownum seq,t.*"+
+					"from (select *"+
+						"from student"+
+						"order by num desc)t)t2"+
+			"where t2.seq between ? and ?";*/
+	
+	   public static final String STUDENT_LIST="select t.* from (select rownum rnum, s.* from student s)t where t.rnum between ? and ?";
+	   public static final String COUNT_STUDENT="SELECT COUNT(*)AS count FROM student";
+}
