@@ -119,6 +119,14 @@ SELECT DISTINCT ssn,name FROM Member m, Board b WHERE m.id = b.id AND ROWNUM >= 
 UPDATE Member SET password='' WHERE id='';
 UPDATE Member SET phone = '010-1234-4567' WHERE id='';
 
+select t2.*
+from(select rownum seq, t.*
+	from (select *
+	from student 
+	where name like '%이%'
+	order by num desc)t)t2
+where t2.seq between 1 and 5;
+
 
 
 -- ****************************************************************

@@ -18,27 +18,26 @@ import com.gms.web.util.DispatcherServlet;
 import com.gms.web.util.Separator;
 
 
-@WebServlet("/common.do")
+@WebServlet({"/home.do","/common.do"})
 public class CommonController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		MemberBean member = new MemberBean();
 		Separator.init(request);
-		switch (request.getParameter(Action.CMD)) {
+		switch (Separator.cmd.getAction()) {
 		case Action.MOVE:
-			System.out.println("====moveeeeee");
+			System.out.println("*** CommonCtrl : move 진입");
 			DispatcherServlet.send(request, response);
 			break;
 		case Action.LOGIN:
-			System.out.println("====로그인");
+			System.out.println("*** CommonCtrl : login 진입");
 			MemberService service = MemberServiceImpl.getInstance();
-			MemberBean m = new MemberBean();
-			m.setId(request.getParameter("login_id"));
+			MemberBean member = new MemberBean();
+			member.setId(request.getParameter("login_id"));
 			System.out.println("id = "+ request.getParameter("login_id"));
-			m.setPw(request.getParameter("login_pass"));
-			Map<String, Object> map = service.login(m);
+			member.setPw(request.getParameter("login_pass"));
+			Map<String, Object> map = service.login(member);
 			
 			if(map.get("page").equals("main")){
 				session.setAttribute("user", map.get("user"));
@@ -48,6 +47,7 @@ public class CommonController extends HttpServlet {
 			DispatcherServlet.send(request, response);
 			break;
 		case Action.LOGOUT: 
+			System.out.println("*** CommonCtrl : logout 진입");
 			session.invalidate();
 			DispatcherServlet.send(request, response);
 			break;

@@ -2,5 +2,5 @@
 <img src ="${img}/loading.gif" alt="">
 <a></a>
 <script>
-	location.href="${ctx}/common.do?action=move&page=index";
+	location.href="${ctx}/home.do";
 </script>

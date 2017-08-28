@@ -11,6 +11,7 @@ public class DB {
 	public static final String MSSQL_URL="";
 	public static final String MARIADB_DRIVER="";
 	public static final String MARIADB_URL="";
+	
 	public static final String USERNAME="hanbit";
 	public static final String PASSWORD="hanbit";
 	

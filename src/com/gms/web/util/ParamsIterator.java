@@ -13,6 +13,7 @@ public class ParamsIterator {
 		Iterator<Map.Entry<String, String[]>> it = set.iterator();
 		String  params[] = new String[set.size()];
 		System.out.println("set size"+set.size());
+		
 		int i=0;
 		while(it.hasNext()){
 			Map.Entry<String, String[]> e = it.next();

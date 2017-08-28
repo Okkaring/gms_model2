@@ -3,16 +3,17 @@ package com.gms.web.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.gms.web.command.Command;
 import com.gms.web.domain.MemberBean;
 
 
 public interface MemberDAO {
 		public String insert(Map<?,?> map);			
-		public List<?> selectAll(Object o);					
-		public String countMembers();							
-		public MemberBean selectById(String id);	
-		public List<?> selectByName(String name); 
+		public List<?> selectAll(Command cmd);					
+		public String countMembers(Command cmd);							
+		public MemberBean selectById(Command cmd);	
+		public List<?> selectByName(Command cmd); 
 		public String update(MemberBean bean);
-		public String delete(String id);
+		public String delete(Command cmd);
 
 }

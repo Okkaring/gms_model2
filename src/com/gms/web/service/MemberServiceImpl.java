@@ -2,6 +2,7 @@ package com.gms.web.service;
 
 import java.util.*;
 
+import com.gms.web.command.Command;
 import com.gms.web.dao.MemberDAOImpl;
 import com.gms.web.domain.MajorBean;
 import com.gms.web.domain.MemberBean;
@@ -22,22 +23,22 @@ public class MemberServiceImpl implements MemberService{
 		return MemberDAOImpl.getInstance().insert(map);
 	}
 	@Override
-	public List<?> list(Object o) {
-		return MemberDAOImpl.getInstance().selectAll(o);
+	public List<?> list(Command cmd) {
+		return MemberDAOImpl.getInstance().selectAll(cmd);
 	}
 	@Override
-	public String countMembers() {
-		return String.valueOf(MemberDAOImpl.getInstance().countMembers());
+	public String countMembers(Command cmd) {
+		return String.valueOf(MemberDAOImpl.getInstance().countMembers(cmd));
 	}
 	
 	@Override
-	public MemberBean findById(String id) {
-		return MemberDAOImpl.getInstance().selectById(id);
+	public MemberBean findById(Command cmd) {
+		return MemberDAOImpl.getInstance().selectById(cmd);
 	}
 
 	@Override
-	public List<?> findByName(String name) {
-		return MemberDAOImpl.getInstance().selectByName(name);
+	public List<?> findByName(Command cmd) {
+		return MemberDAOImpl.getInstance().selectByName(cmd);
 	}
 
 	@Override
@@ -46,14 +47,16 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public String remove(String id) {
-		return	(MemberDAOImpl.getInstance().delete(id).equals("1"))? "삭제 성공!!": "삭제 실패!!";
+	public String remove(Command cmd) {
+		return	(MemberDAOImpl.getInstance().delete(cmd).equals("1"))? "삭제 성공!!": "삭제 실패!!";
 	}
 	@Override
 	public Map<String, Object> login(MemberBean bean) {
 		Map<String, Object> map = new HashMap<>();
-		MemberBean m = findById(bean.getId());
-		String page = (m != null)?(bean.getPw().equals(m.getPw()))?"main":"login_fail":"member_join";
+		Command cmd = new Command();
+		cmd.setSearch(bean.getId());
+		MemberBean m = findById(cmd);
+		String page = (m != null)?(bean.getPw().equals(m.getPw())) ? "main":"login_fail" : "member_join";
 		map.put("page",page);
 		map.put("user",m);
 		return map;
