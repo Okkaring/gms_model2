@@ -27,15 +27,15 @@ public class CommonController extends HttpServlet {
 		Separator.init(request);
 		switch (Separator.cmd.getAction()) {
 		case Action.MOVE:
-			System.out.println("*** CommonCtrl : move 진입");
+			System.out.println("****** CommonCtrl ****** : move 진입");
 			DispatcherServlet.send(request, response);
 			break;
 		case Action.LOGIN:
-			System.out.println("*** CommonCtrl : login 진입");
+			System.out.println("****** CommonCtrl ****** : login 진입");
 			MemberService service = MemberServiceImpl.getInstance();
 			MemberBean member = new MemberBean();
 			member.setId(request.getParameter("login_id"));
-			System.out.println("id = "+ request.getParameter("login_id"));
+			System.out.println("*** CommonCtrl_id = "+ request.getParameter("login_id"));
 			member.setPw(request.getParameter("login_pass"));
 			Map<String, Object> map = service.login(member);
 			

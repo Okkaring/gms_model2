@@ -141,5 +141,27 @@
 		var logout = document.getElementById("logout");
 		logout.setAttribute("onclick","'common','index'");
 	}
+	function findByName(){
+		var search = document.getElementById('search').value;
+		if(search===""){
+			alert('검색어를 입력하세요.');
+			return false;
+		}
+		alert('잘 봐 이것은 mbr_list / function: / findByName: '+ search);
+		location.href="${ctx}/member.do?action=search&page=member_list&search="+search;
+		return true;
+	}
+	function updateStudent(id){
+		alert('수정할 id : ' +id);
+		location.href="${ctx}/member.do?action=update&page=member_update&id="+id;
+	}
+	function deleteStudent(id){
+		alert('삭제할 id : ' + id);
+		location.href="${ctx}/member.do?action=delete&page=member_list&id="+id;
+	}
+	function detailStudent(id){
+		alert('조회할 id : ' + id);
+		location.href="${ctx}/member.do?action=detail&page=member_detail&id="+id;
+	}
 	window.onload=navbarLoad();
 </script>

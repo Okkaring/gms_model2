@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.gms.web.command.Command;
+import com.gms.web.constant.Action;
 import com.gms.web.constant.DB;
 import com.gms.web.constant.SQL;
 import com.gms.web.constant.Vendor;
@@ -98,43 +99,63 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	@Override
 	public String countMembers(Command cmd) {
-		String result="";
+		System.out.println("*** MemberDAOImpl / count / search : ("+cmd.getSearch()+")");
+		System.out.println("*** MemberDAOImpl / count / Column : ("+cmd.getColumn()+")");
+		String count="";
 		try {
-			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection().prepareStatement(SQL.COUNT_STUDENT).executeQuery();
-			if(rs.next()){
-				result = rs.getString("count");
+			conn= DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection();
+			PreparedStatement pstmt = null;
+			if(cmd.getSearch()==null){
+				System.out.println("cmd.getSearch() is null");
+				pstmt =conn.prepareStatement(SQL.STUDENT_COUNT);
+				pstmt.setString(1, "%");
+			}else{
+				System.out.println("cmd.getSearch() is not null");
+				pstmt =conn.prepareStatement(SQL.STUDENT_COUNT);
+				pstmt.setString(1, "%"+cmd.getSearch()+"%");
+				System.out.println("MemberDAOImpl/ list :" + cmd.getSearch());
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-	@Override
-	public MemberBean selectById(Command cmd) {
-		MemberBean member = null;
-		try {
-			PreparedStatement pstmt =DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection().prepareStatement(SQL.MEMBER_FINDBYID);
-			pstmt.setString(1, cmd.getSearch());
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()){
-				member = new MemberBean();
-				member.setId(rs.getString(DB.MEMBER_ID));
-				member.setPw(rs.getString(DB.MEMBER_PW));
-				member.setSsn(rs.getString(DB.MEMBER_SSN));
-				member.setName(rs.getString(DB.MEMBER_NAME));
+				count = rs.getString("count");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return member;
+		return count;
+	}
+	@Override
+	public StudentBean selectById(Command cmd) {
+		StudentBean stu = null;
+		System.out.println("");
+		try {
+			PreparedStatement pstmt =DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection().prepareStatement(SQL.STUDENT_FINDBYID);
+			pstmt.setString(1,cmd.getSearch());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()){
+				stu = new StudentBean();
+				stu.setNum(rs.getString(DB.NUM));
+				stu.setId(rs.getString(DB.ID));
+				stu.setSsn(rs.getString(DB.MEMBER_SSN));
+				stu.setName(rs.getString(DB.MEMBER_NAME));
+				stu.setPhone(rs.getString(DB.MEMBER_PHONE));
+				stu.setEmail(rs.getString(DB.MEMBER_EMAIL));
+				stu.setTitle(rs.getString(DB.TITLE));
+				stu.setRegdate(rs.getString(DB.MEMBER_REGDATE));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return stu;
 	}
 	@Override
 	public List<StudentBean> selectByName(Command cmd) {
 		System.out.println("*** MemberDAOImpl/ selectByName 진입: name ?" + cmd.getSearch());
+		System.out.println("*** MemberDAOImpl/ selectByName 진입: name ?" + cmd.getColumn());
 		List<StudentBean> list = new ArrayList<>();
 		try {
 			PreparedStatement pstmt =DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection().prepareStatement(SQL.STUDENT_SEARCH);
-			pstmt.setString(1, cmd.getSearch());
+			pstmt.setString(1, "%"+ cmd.getSearch()+"%");
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
 				stu = new StudentBean();
@@ -179,6 +200,26 @@ public class MemberDAOImpl implements MemberDAO{
 			e.printStackTrace();
 		}
 		return rs;
+	}
+	@Override
+	public MemberBean login(Command cmd) {
+		MemberBean member = null;
+		System.out.println("*** MemberDAOImpl / cmd.getSearch(ID) : "+cmd.getSearch());
+		try {
+			PreparedStatement pstmt =DatabaseFactory.createDatabase(Vendor.ORACLE, DB.USERNAME, DB.PASSWORD).getConnection().prepareStatement(SQL.MEMBER_FINDBYID);
+			pstmt.setString(1, cmd.getSearch());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()){
+				member = new MemberBean();
+				member.setId(rs.getString(DB.MEMBER_ID));
+				member.setPw(rs.getString(DB.MEMBER_PW));
+				member.setSsn(rs.getString(DB.MEMBER_SSN));
+				member.setName(rs.getString(DB.MEMBER_NAME));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return member;
 	}
 
 

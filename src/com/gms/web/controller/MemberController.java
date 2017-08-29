@@ -77,6 +77,9 @@ public class MemberController extends HttpServlet {
 			break;
 		case Action.LIST :
 			System.out.println("*** MemberCtrl: MEMBER LIST 진입");
+			//cmd.setColumn(String.valueOf(map.get("column")));
+			//cmd.setSearch(String.valueOf(map.get("search")));
+			
 			pxy.setTheNumberOfRows(Integer.parseInt(service.countMembers(cmd)));
 			pxy.setPageNumber(Integer.parseInt(request.getParameter("pageNumber")));
 			pxy.execute(BlockHandler.attr(pxy), service.list(PageHandler.attr(pxy)));
@@ -85,27 +88,33 @@ public class MemberController extends HttpServlet {
 		case Action.SEARCH: 
 			System.out.println("*** MemberCtrl: MEMBER SEARCH 진입");
 			map = ParamsIterator.execute(request);
-			pxy.setTheNumberOfRows(Integer.parseInt(service.countMembers(cmd)));
 			cmd = PageHandler.attr(pxy);
+			cmd.setPageNumber(request.getParameter("pageNumber"));
 			cmd.setColumn("name");
 			cmd.setSearch(String.valueOf(map.get("search")));
-			request.setAttribute("list",service.findByName(cmd));
+			pxy.setTheNumberOfRows(Integer.parseInt(service.countMembers(cmd)));
+			cmd.setStartRow(PageHandler.attr(pxy).getStartRow());
+			cmd.setEndRow(PageHandler.attr(pxy).getEndRow());
+			pxy.setPageNumber(Integer.parseInt(cmd.getPageNumber()));
+			pxy.execute(BlockHandler.attr(pxy), service.findByName(cmd));
+			System.out.println("*** MemberCtrl: MEMBER SEARCH cmd.getPageNumber?: " + cmd.getPageNumber());
 			DispatcherServlet.send(request, response);
 			break;
 		case Action.UPDATE: 
-			System.out.println("*** MemberCtrl: MEMBER UPDATE 진입");
+			System.out.println("****** MemberCtrl: MEMBER UPDATE 진입 ******");
 			cmd.setSearch(request.getParameter("id"));
-			service.modify(service.findById(cmd));
+			//service.modify(service.findById(cmd));
 			DispatcherServlet.send(request, response);
 			break;
 		case Action.DELETE: 
-			System.out.println("*** MemberCtrl: MEMBER DELETE 진입");
+			System.out.println("****** MemberCtrl: MEMBER DELETE 진입 ******");
 		/*	service.remove(request.getParameter("id"));*/
 			response.sendRedirect(request.getContextPath()+"/member.do?action=list&page=member_list&pageNumber=1");
 			break;
 		case Action.DETAIL: 
-			System.out.println("*** MemberCtrl: MEMBER DETAIL 진입");
+			System.out.println("****** MemberCtrl: MEMBER DETAIL 진입 ******");
 			cmd.setSearch(request.getParameter("id"));
+			System.out.println("*** MemberCtrl:");
 			request.setAttribute("student",service.findById(cmd));
 			DispatcherServlet.send(request, response);
 			break;

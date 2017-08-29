@@ -8,10 +8,8 @@
    
       <input id="search" name="search" type="text" class="form-control" placeholder="Search for...">
       <span class="input-group-btn">
-        <button class="btn btn-default" id=search_btn onclick="findByName()" type="button"> SEARCH! </button>
+        <button class="btn btn-default" id=search_btn onclick="findByName()" type="button">SEARCH!</button>
       </span>
-
-  
     </div><!-- /input-group -->
   </div><!-- /.col-lg-6 -->
 
@@ -81,31 +79,6 @@
 	</nav>
 </div>
 
-
-<script>
-	function findByName(){
-		var search = document.getElementById('search').value;
-		if(search===""){
-			alert('검색어를 입력하세요.');
-			return false;
-		}
-		alert('잘 봐 이것은 mbr_list / function: / findByName: '+ search);
-		location.href="${ctx}/member.do?action=search&page=member_search&search="+search;
-		return true;
-	}
-	function updateStudent(id){
-		alert('수정할 id : ' +id);
-		location.href="${ctx}/member.do?action=update&page=member_update&id="+id;
-	}
-	function deleteStudent(id){
-		alert('삭제할 id : ' + id);
-		location.href="${ctx}/member.do?action=delete&page=member_list&id="+id;
-	}
-	function detailStudent(id){
-		alert('조회할 id : ' + id);
-		location.href="${ctx}/member.do?action=detail&page=member_detail&id="+id;
-	}
-</script>
 
 
 

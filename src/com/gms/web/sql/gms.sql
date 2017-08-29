@@ -42,6 +42,12 @@ SELECT * FROM Major;
 SELECT * FROM MEMBER;
 SELECT * FROM Subject;
 SELECT * FROM Student;
+--SELECT * FROM Student where name like '%%';
+--SELECT * FROM Student where name like ?;
+SELECT COUNT(*) FROM Student WHERE name like ?;
+SELECT COUNT(*) FROM Student WHERE name like '%이%';
+SELECT COUNT(*) FROM Student WHERE name like '%';
+
 
 -- ************************************************
 -- [2]SUBJECT_TAB

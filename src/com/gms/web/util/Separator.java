@@ -10,13 +10,13 @@ public class Separator {
 	
 	public static void init(HttpServletRequest request){
 		String servletPath = request.getServletPath();
-		System.out.println("*** Seperator / init() 서블릿 패스 : " + servletPath );
-		cmd = CommandFactory.createCommand(
-				servletPath.substring(1,servletPath.indexOf(".")),
-				request.getParameter("action"),
-				request.getParameter("page"),
-				request.getParameter("pageNumber"),
-				request.getParameter("column"),
-				request.getParameter("search"));
+		System.out.println("*** Seperator / init() /servletPath : " + servletPath );
+		
+		cmd = CommandFactory.createCommand( servletPath.substring(1,servletPath.indexOf(".")),
+											request.getParameter("action"),
+											request.getParameter("page"),
+											request.getParameter("pageNumber"),
+											request.getParameter("column"),
+											request.getParameter("search"));
 	}
 }
