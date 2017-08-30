@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script src="${js}/member.js"></script>
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -164,11 +166,7 @@
 		location.href="${ctx}/member.do?action=detail&page=member_detail&id="+id;
 	}
 	window.onload=navbarLoad();
-   function test(){
-    	  alert('${requestScope.student.id}');
-    	  document.querySelector('#updateBtn').onclick=studentInfo;
-    	  
-      }
+
     function studentInfo(){
   	  var id='id',
   	      id_val='${requestScope.student.id}',
@@ -181,7 +179,7 @@
   	  sessionStorage.setItem(name,name_val);    
   	  sessionStorage.setItem(email,email_val);    
     }
-    window.addEventListener('load',test,false);
+    /* window.addEventListener('load',test,false); */
     function memberAdd(){
 		var id = document.getElementById("id").value;
 		var pw = document.getElementById("pw").value;
@@ -204,4 +202,5 @@
   		form.submit();
   		return true;
   	}
+   
 </script>
