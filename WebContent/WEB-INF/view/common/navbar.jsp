@@ -71,15 +71,15 @@
 		location.href="${ctx}/"+ctx+".do?action=list&page="+page+"&pageNumber="+pageNumber;
 	}
 	function mainLoad(){
-		var u1 = $('#main_ul_stu');
-		var u2 = $('#main_ul_grade');
-		var u3 = $('#main_ul_board');
+		var u1 = document.getElementById("main_ul_stu");
+		var u2 = document.getElementById("main_ul_grade");
+		var u3 = document.getElementById("main_ul_board");
 		var u1c= u1.children;
 		var u2c= u2.children;
 		var u3c= u3.children;
-		u1.addClass("class","list-group");
-		u2.addClass("class","list-group");
-		u3.addClass("class","list-group");
+		u1.setAttribute("class","list-group");
+		u2.setAttribute("class","list-group");
+		u3.setAttribute("class","list-group");
 		var i;
 		for(i=0;i<u1c.length;i++){
 			u1c[i].setAttribute("class","list-group-item");
@@ -110,6 +110,7 @@
 		u3c[4].setAttribute("onclick","deleteTarget('board_delete')");
 	}
 	function navbarLoad(){
+		
 		var u1 = document.getElementById("navbar_ul_stu");
 		var u2 = document.getElementById("navbar_ul_grade");
 		var u3 = document.getElementById("navbar_ul_board");
