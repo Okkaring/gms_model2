@@ -2,7 +2,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">BOMB A B Y CHU</a>
+      <a class="navbar-brand" href="#">BOMBABYCHU</a>
     </div>
     
     <ul class="nav navbar-nav">
@@ -12,7 +12,7 @@
       	<a href="#" class="dropdown-toggle"
       	data-toggle="dropdown" role="button"
       	aria-haspopup="true"
-      	aria-expanded="false">회원 관리 <span class="caret"></span></a>
+      	aria-expanded="false">회원 관리<span class="caret"></span></a>
       	
       	<ul id="navbar_ul_stu">
       		<li><a>학생 추가</a></li>
@@ -27,7 +27,7 @@
       	<a href="#" class="dropdown-toggle"
       	data-toggle="dropdown" role="button"
       	aria-haspopup="true"
-      	aria-expanded="false">성적 관리 <span class="caret"></span></a>
+      	aria-expanded="false">성적 관리<span class="caret"></span></a>
       	
       	<ul id="navbar_ul_grade">
       		<li><a>성적 추가</a></li>
@@ -42,7 +42,7 @@
       	<a href="#" class="dropdown-toggle"
       	data-toggle="dropdown" role="button"
       	aria-haspopup="true"
-      	aria-expanded="false">게시판 관리 <span class="caret"></span></a>
+      	aria-expanded="false">게시판 관리<span class="caret"></span></a>
       	
       	<ul id="navbar_ul_board">
       		<li><a>게시판 추가</a></li>
@@ -71,15 +71,15 @@
 		location.href="${ctx}/"+ctx+".do?action=list&page="+page+"&pageNumber="+pageNumber;
 	}
 	function mainLoad(){
-		var u1 = document.getElementById("main_ul_stu");
-		var u2 = document.getElementById("main_ul_grade");
-		var u3 = document.getElementById("main_ul_board");
+		var u1 = $('#main_ul_stu');
+		var u2 = $('#main_ul_grade');
+		var u3 = $('#main_ul_board');
 		var u1c= u1.children;
 		var u2c= u2.children;
 		var u3c= u3.children;
-		u1.setAttribute("class","list-group");
-		u2.setAttribute("class","list-group");
-		u3.setAttribute("class","list-group");
+		u1.addClass("class","list-group");
+		u2.addClass("class","list-group");
+		u3.addClass("class","list-group");
 		var i;
 		for(i=0;i<u1c.length;i++){
 			u1c[i].setAttribute("class","list-group-item");
@@ -110,7 +110,6 @@
 		u3c[4].setAttribute("onclick","deleteTarget('board_delete')");
 	}
 	function navbarLoad(){
-		
 		var u1 = document.getElementById("navbar_ul_stu");
 		var u2 = document.getElementById("navbar_ul_grade");
 		var u3 = document.getElementById("navbar_ul_board");
@@ -139,7 +138,7 @@
 		u3c[3].setAttribute("class","divider");
 		u3c[4].setAttribute("onclick","deleteTarget('board_delete')");
 		var logout = document.getElementById("logout");
-		logout.setAttribute("onclick","'common','index'");
+		logout.setAttribute("onclick","'common','home'");
 	}
 	function findByName(){
 		var search = document.getElementById('search').value;
@@ -164,4 +163,44 @@
 		location.href="${ctx}/member.do?action=detail&page=member_detail&id="+id;
 	}
 	window.onload=navbarLoad();
+   function test(){
+    	  alert('${requestScope.student.id}');
+    	  document.querySelector('#updateBtn').onclick=studentInfo;
+    	  
+      }
+    function studentInfo(){
+  	  var id='id',
+  	      id_val='${requestScope.student.id}',
+  	      name='name',
+  	      name_val='${requestScope.student.name}',
+  	      email='email',
+  	      email_val='${requestScope.student.email}'
+  	      ;
+  	  sessionStorage.setItem(id,id_val);    
+  	  sessionStorage.setItem(name,name_val);    
+  	  sessionStorage.setItem(email,email_val);    
+    }
+    window.addEventListener('load',test,false);
+    function memberAdd(){
+		var id = document.getElementById("id").value;
+		var pw = document.getElementById("pw").value;
+		var birthday = document.getElementById("birthday").value;
+	  		if(id===""){
+	  			alert('ID를 입력해 주세요.');
+	  			return false;
+	  		}
+	  		if(pw===""){
+	  			alert('pw를 입력해 주세요.');
+	  			return false;
+	  		}
+	  		if(birthday===""){
+	  			alert('생일을 입력해 주세요.');
+	  			return false;
+	  		}
+  		var form = document.getElementById('join_form');
+  		form.setAttribute('action','${ctx}/member.do');
+  		form.setAttribute('method','post');
+  		form.submit();
+  		return true;
+  	}
 </script>

@@ -53,28 +53,3 @@
 		</fieldset>
 	</form> 
 </div>
-
-<script>
-function memberAdd(){
-	var id = document.getElementById("id").value;
-	var pw = document.getElementById("pw").value;
-	var birthday = document.getElementById("birthday").value;
-	if(id===""){
-		alert('ID를 입력해 주세요.');
-		return false;
-	}
-	if(pw===""){
-		alert('pw를 입력해 주세요.');
-		return false;
-	}
-	if(birthday===""){
-		alert('생일을 입력해 주세요.');
-		return false;
-	}
-	var form = document.getElementById('join_form');
-	form.setAttribute('action','${ctx}/member.do');
-	form.setAttribute('method','post');
-	form.submit();
-	return true;
-}
-</script>
