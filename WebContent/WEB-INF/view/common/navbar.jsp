@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<script src="${js}/member.js"></script>
+<script src="${js}/app.js"></script>
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -8,7 +8,7 @@
     </div>
     
     <ul class="nav navbar-nav">
-      <li class="active"><a id = "navbar" onclick="moveTo('common','main')"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a></li>  
+      <li class="active"><a id = "navbar"><span class="glyphicon glyphicon-home"></span>&nbsp;Main</a></li>  
         
       <li class="dropdown">
       	<a href="#" class="dropdown-toggle"
@@ -20,7 +20,6 @@
       		<li><a>학생 추가</a></li>
       		<li><a>학생 목록</a></li>
       		<li><a>학생 조회</a></li>
-      		<li></li>
       		<li><a>학생 삭제</a></li>
       	</ul>
       	</li>
@@ -35,7 +34,6 @@
       		<li><a>성적 추가</a></li>
       		<li><a>성적 목록</a></li>
       		<li><a>성적 조회</a></li>
-      		<li></li>
       		<li><a>성적 삭제</a></li>
       	</ul>
       	</li>
@@ -59,29 +57,20 @@
   </div>
 </nav>
 <script>
-	function logout(ctx,page){
-		alert("로그아웃");
-		location.href="${ctx}/"+ctx+".do?action=logout&page="+page;
-	}
-	function moveTo(ctx,page){
-		location.href="${ctx}/"+ctx+".do?action=move&page="+page;
-	}
-	function deleteTarget(ctx){
-		prompt(ctx+"의 id");
-	}
-	function list(ctx,page,pageNumber){
-		location.href="${ctx}/"+ctx+".do?action=list&page="+page+"&pageNumber="+pageNumber;
-	}
-	function mainLoad(){
+
+	/* function mainLoad(){
+		var main_ul = [];
 		var u1 = document.getElementById("main_ul_stu");
 		var u2 = document.getElementById("main_ul_grade");
 		var u3 = document.getElementById("main_ul_board");
-		var u1c= u1.children;
-		var u2c= u2.children;
-		var u3c= u3.children;
 		u1.setAttribute("class","list-group");
 		u2.setAttribute("class","list-group");
 		u3.setAttribute("class","list-group");
+		
+		var u1c= u1.children;
+		var u2c= u2.children;
+		var u3c= u3.children;
+		
 		var i;
 		for(i=0;i<u1c.length;i++){
 			u1c[i].setAttribute("class","list-group-item");
@@ -110,18 +99,20 @@
 		u3c[2].setAttribute("onclick","moveTo('board','board_detail')");
 		u3c[3].setAttribute("onclick","moveTo('board','board_update')");
 		u3c[4].setAttribute("onclick","deleteTarget('board_delete')");
-	}
-	function navbarLoad(){
+	} */
+	
+	/* function navbarLoad(){
 		
 		var u1 = document.getElementById("navbar_ul_stu");
 		var u2 = document.getElementById("navbar_ul_grade");
 		var u3 = document.getElementById("navbar_ul_board");
-		u1.setAttribute("class","dropdown-menu");
-		u2.setAttribute("class","dropdown-menu");
-		u3.setAttribute("class","dropdown-menu");
 		var u1c = u1.children;
 		var u2c = u2.children;
 		var u3c = u3.children;
+		u1.setAttribute("class","dropdown-menu");
+		u2.setAttribute("class","dropdown-menu");
+		u3.setAttribute("class","dropdown-menu");
+		
 		u1c[0].setAttribute("onclick","moveTo('member','member_add')");
 		u1c[1].setAttribute("onclick","list('member','member_list','1')");
 		u1c[2].setAttribute("onclick","moveTo('member','member_search')");
@@ -142,8 +133,24 @@
 		u3c[4].setAttribute("onclick","deleteTarget('board_delete')");
 		var logout = document.getElementById("logout");
 		logout.setAttribute("onclick","'common','home'");
+	} */
+/* 	function moveTo(ctx,page){
+		location.href="${ctx}/"+ctx+".do?action=move&page="+page;
+	} */
+	//window.onload=navbarLoad();
+	navbar.init();
+	
+/* 	function logout(ctx,page){
+		alert("로그아웃");
+		location.href="${ctx}/"+ctx+".do?action=logout&page="+page;
 	}
-	function findByName(){
+	function deleteTarget(ctx){
+		prompt(ctx+"의 id");
+	}
+	function list(ctx,page,pageNumber){
+		location.href="${ctx}/"+ctx+".do?action=list&page="+page+"&pageNumber="+pageNumber;
+	} */
+	/* function findByName(){
 		var search = document.getElementById('search').value;
 		if(search===""){
 			alert('검색어를 입력하세요.');
@@ -165,7 +172,6 @@
 		alert('조회할 id : ' + id);
 		location.href="${ctx}/member.do?action=detail&page=member_detail&id="+id;
 	}
-	window.onload=navbarLoad();
 
     function studentInfo(){
   	  var id='id',
@@ -179,7 +185,7 @@
   	  sessionStorage.setItem(name,name_val);    
   	  sessionStorage.setItem(email,email_val);    
     }
-    /* window.addEventListener('load',test,false); */
+   
     function memberAdd(){
 		var id = document.getElementById("id").value;
 		var pw = document.getElementById("pw").value;
@@ -201,6 +207,6 @@
   		form.setAttribute('method','post');
   		form.submit();
   		return true;
-  	}
+  	} */
    
 </script>

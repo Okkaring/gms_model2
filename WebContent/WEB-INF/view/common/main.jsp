@@ -8,8 +8,7 @@
 				<ul id="main_ul_stu">
 					<li><a>STUDENT ADD</a></li>
 					<li><a>STUDENT LIST</a></li>
-					<li><a>STUDENT SEARCH</a></li>
-					<li><a>STUDENT UPDATE</a></li>
+					<li><a>STUDENT DETAIL</a></li>
 					<li><a>STUDENT DELETE</a></li>
 				</ul>
 		</div>
@@ -19,7 +18,6 @@
 					<li><a>GRADE ADD</a></li>
 					<li><a>GRADE LIST</a></li>
 					<li><a>GRADE DETAIL</a></li>
-					<li><a>GRADE UPDATE</a></li>
 					<li><a>GRADE DELETE</a></li>
 				</ul>
 		</div>
@@ -29,7 +27,6 @@
 					<li><a>BOARD WRITE</a></li>
 					<li><a>BOARD LIST</a></li>
 					<li><a>BOARD DETAIL</a></li>
-					<li><a>BOARD UPDATE</a></li>
 					<li><a>BOARD DELETE</a></li>
 				</ul>
 		</div>
@@ -39,5 +36,6 @@
 </html>
 
 <script>
-	window.onload = mainLoad();
+	/* window.onload = mainLoad(); */
+	main.init();
 </script>
